@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Resistance</title>
+		<script src="js/jquery-2.1.1.js"></script>
+		<!-- <link rel="shortcut icon" href="maze.ico"> -->
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="js/bootstrap.js"></script>
+		<style type="text/css">
+			html, body {
+			    max-width: 100%;
+			    overflow-x: hidden;
+			}
+		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	</head>
+	<body>
+		<div class="container-fluid" style="text-align:center;">
+			<div>
+				<button class="btn btn-danger" id="new_game">New Game</button>
+			</div>
+			<button class="button" id="reset">Reset</button>
+			
+			
+		
+		</div>
+		<div class="container-fluid" style="text-align:center;">
+			<div class="btn-group">
+				<button type="button" class="btn btn-success num_players active" id="five" value="5">5</button>
+				<button type="button" class="btn btn-success num_players" id="six" value="6">6</button>
+				<button type="button" class="btn btn-warning num_players" id="seven" value="7">7</button>
+				<button type="button" class="btn btn-warning num_players" id="eight" value="8">8</button>
+				<button type="button" class="btn btn-warning num_players" id="nine" value="9">9</button>
+				<button type="button" class="btn btn-warning num_players" id="ten" value="10">10</button>		
+			</div>
+			
+			
+			
+		</div>
+		<div class="row" id="start_button_div" style="text-align:center;">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<button class="btn btn-success" id="start_game">Start</button>
+			</div>
+			<div class="col-md-2"></div>
+		</div>	
+		<div class="row" id="roles_div" style="text-align:center;">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<span id="confirm_position"></span>
+				<div>
+					<button class="btn btn-success" id="confirm_position_button">Yes</button>
+					<button class="btn btn-danger" id="done_position_button">done</button>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>	
+
+		
+	</body>
+</html>
+<script type="text/javascript">
+
+var num_players = 5;
+var num_resistance = 3;
+var num_spies = 2;
+
+var players;
+var current_posistion = 1;
+
+
+
+
+$(document).ready(function(){
+	$("#roles_div").hide();
+	$("#done_position_button").hide();
+	$(".num_players").click(function(){
+		$(".num_players").removeClass('active');
+		$(this).addClass('active');
+		num_players = Number($(this).attr('value'));
+		get_game_parameters();
+		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+
+	});
+	$("#start_game").click(function(){
+		get_game_parameters();
+		$(this).hide();
+
+		$("#roles_div").show();
+		$("#confirm_position").text("Are you player "+current_posistion +"?");
+		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log(players);
+	});
+	$("#confirm_position_button").click(function(){
+		$(this).hide();
+		$("#done_position_button").show();
+		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
+		current_posistion++;
+
+	});
+	$("#done_position_button").click(function(){
+		$(this).hide();
+		if(current_posistion <= players.length){
+			$("#confirm_position_button").show();
+			$("#confirm_position").text("Are you position " + current_posistion +"?");
+		}
+		else{
+			$("#confirm_position").text("Roles are handed out");
+
+		}
+
+	});
+	$("#new_game").click(function(){
+		get_game_parameters();
+		$("#roles_div").hide();
+		$("#done_position_button").hide();
+		$("#roles_div").show();
+		$("#confirm_position_button").show();
+		$("#done_position_button").hide();
+		current_posistion = 1;
+		$("#confirm_position").text("Are you player "+current_posistion +"?");
+		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log(players);
+	});
+
+});
+
+function get_game_parameters(){
+	if(num_players == 5){
+		num_resistance = 3;
+		num_spies = 2;
+	}
+	else if(num_players == 6){
+		num_resistance = 4;
+		num_spies = 2;
+	}
+	else if(num_players == 7){
+		num_resistance = 4;
+		num_spies = 3;
+	}
+	else if(num_players == 8){
+		num_resistance = 5;
+		num_spies = 3;
+	}
+	else if(num_players == 9){
+		num_resistance = 6;
+		num_spies = 3;
+	}
+	else if(num_players == 10){
+		num_resistance = 6;
+		num_spies = 4;
+	}
+	players = new Array(num_players);
+	for(var i = 0; i < num_resistance; i++){
+		players[i] = "resistance";
+	}
+	for(var i = num_resistance; i < num_players; i++){
+		players[i] = "spy";
+	}
+	players = shuffle(players);
+	players = shuffle(players);
+
+	// for(var i = 0; i < 10000; i++){
+	// 	var index_one = Math.floor(Math.random() * num_players);
+	// 	var index_two = Math.floor(Math.random() * num_players);
+	// 	var temp = players[index_one];
+	// 	players[index_one] = players[index_two];
+	// 	players[index_two] = temp;
+	// }
+}
+function shuffle(array) {
+    var counter = array.length, temp, index;
+
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * counter);
+
+        // Decrease counter by 1
+        counter--;
+
+        // And swap the last element with it
+        temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
+}
+</script>
