@@ -26,12 +26,12 @@
 		</div>
 		<div class="container-fluid" style="text-align:center;" id="num_player_select">
 			<div class="btn-group">
-				<button type="button" class="btn btn-success num_players active" id="five" value="5">5</button>
-				<button type="button" class="btn btn-success num_players" id="six" value="6">6</button>
-				<button type="button" class="btn btn-warning num_players" id="seven" value="7">7</button>
-				<button type="button" class="btn btn-warning num_players" id="eight" value="8">8</button>
-				<button type="button" class="btn btn-warning num_players" id="nine" value="9">9</button>
-				<button type="button" class="btn btn-warning num_players" id="ten" value="10">10</button>		
+				<button type="button" class="btn btn-info num_players active" id="five" value="5">5</button>
+				<button type="button" class="btn btn-info num_players" id="six" value="6">6</button>
+				<button type="button" class="btn btn-info num_players" id="seven" value="7">7</button>
+				<button type="button" class="btn btn-info num_players" id="eight" value="8">8</button>
+				<button type="button" class="btn btn-info num_players" id="nine" value="9">9</button>
+				<button type="button" class="btn btn-info num_players" id="ten" value="10">10</button>		
 			</div>
 			
 			
@@ -61,7 +61,7 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				
-				<div class="btn-group">
+				<div class="btn-group" id="mission_buttons">
 					<button type="button" class="btn btn-warning mission active" id="mission_1" value="1">1</button>
 					<button type="button" class="btn btn-warning mission" id="mission_2" value="2">2</button>
 					<button type="button" class="btn btn-warning mission" id="mission_3" value="3">3</button>
@@ -136,6 +136,7 @@ $(document).ready(function(){
 	$("#start_game").click(function(){
 		get_game_parameters();
 		$(this).css('visibility', 'hidden');
+
 		$("#num_player_select").css('visibility', 'hidden');
 		$("#roles_div").show();
 		$("#confirm_position_button").css('visibility', 'visible');
@@ -175,6 +176,23 @@ $(document).ready(function(){
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#mission_div").hide();
 		current_posistion = 1;
+		current_mission = 1;
+		mission_text();
+		succeed_votes = 0;
+		fail_votes = 0;
+		num_votes = 0;
+
+		$("#mission_buttons").css('visibility', 'visible');
+		$("#start_mission").css('visibility', 'visible');
+		$(".vote").css('visibility', 'hidden');
+		$(".vote_confirm").css('visibility', 'hidden');
+
+		$("#confirm_text").text("");
+
+		$(".mission").removeClass('btn-danger btn-success active');
+		$(".mission").addClass('btn-warning');
+		$("#mission_1").addClass('active');
+
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 		console.log(players);
@@ -182,6 +200,7 @@ $(document).ready(function(){
 
 	$("#start_mission").click(function(){
 		$(this).css('visibility', 'hidden');
+		$("#mission_buttons").css('visibility', 'hidden');
 		$("#mission_vote").show();
 		$("#confirm_text").text("");
 		$(".vote").css('visibility', 'visible');
@@ -228,6 +247,7 @@ $(document).ready(function(){
 			succeed_votes = 0;
 			fail_votes = 0;
 			num_votes = 0;
+			$("#mission_buttons").css('visibility', 'visible');
 			$("#mission_"+current_mission).addClass('active');
 
 		}
@@ -423,7 +443,7 @@ function mission_text(){
 			people_on_mission = 5;
 		}
 	}
-	$("#mission_text").text(people_on_mission + " are needed for this mission with " + fails_required +" fail(s) required to fail the mission");
+	$("#mission_text").text(people_on_mission + " are needed for mission " + current_mission+ " with " + fails_required +" fail(s) required to fail the mission");
 
 }
 </script>
