@@ -71,6 +71,20 @@
 				<div>
 					<span id="mission_text"></span>
 				</div>
+				<div>
+					<button type="button" class="btn btn-success" id="start_mission">Start Mission</button>	
+				</div>
+				<div id="mission_vote">
+					<button type="button" class="btn btn-success vote" id="succeed" value="succeed">succeed</button>	
+					<button type="button" class="btn btn-danger vote" id="fail" value="fail">fail</button>	
+					<div id="vote_confirm">
+						<div id="confirm_text">
+
+						</div>
+						<button type="button" class="btn btn-success vote_confirm" value="yes">yes</button>	
+						<button type="button" class="btn btn-danger vote_confirm"  value="no">no</button>	
+					</div>
+				</div>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -90,11 +104,18 @@ var current_mission = 1;
 var people_on_mission = 2;
 var fails_required = 1;
 
+var current_vote;
+
+var num_votes = 0;
+var succeed_votes = 0;
+var fail_votes = 0;
 
 
 $(document).ready(function(){
 	$("#roles_div").hide();
 	$("#mission_div").hide();
+	$("#mission_vote").hide();
+	$(".vote_confirm").css('visibility', 'hidden');
 	$("#done_position_button").css('visibility', 'hidden');
 	$(".num_players").click(function(){
 		$(".num_players").removeClass('active');
@@ -157,6 +178,63 @@ $(document).ready(function(){
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 		console.log(players);
+	});
+
+	$("#start_mission").click(function(){
+		$(this).css('visibility', 'hidden');
+		$("#mission_vote").show();
+		$("#confirm_text").text("");
+		$(".vote").css('visibility', 'visible');
+	});
+
+	$(".vote").click(function(){
+		$(".vote").css('visibility', 'hidden');
+		current_vote = $(this).attr('value');
+		$("#confirm_text").text("Are you sure you want to " + current_vote +"?");
+		$(".vote_confirm").css('visibility', 'visible');
+		console.log(current_vote);
+
+	});
+	$(".vote_confirm").click(function(){
+		$(".vote_confirm").css('visibility', 'hidden');
+		$(".vote").css('visibility', 'visible');
+		//current_vote = $(this).attr('value');
+		$("#confirm_text").text("");
+		$("#vote_confirm").show();
+		if($(this).attr('value') == "yes"){
+			if(current_vote == "succeed"){
+				succeed_votes = succeed_votes +1;
+				num_votes = num_votes +1;
+			}
+			else{
+				fail_votes = fail_votes +1;
+				num_votes = num_votes +1;
+			}
+		}
+		if (num_votes == people_on_mission){
+			$(".vote").css('visibility', 'hidden');
+			$("#start_mission").css('visibility', 'visible');
+			$("#mission_"+current_mission).removeClass('btn-warning active');
+			if(fail_votes >= fails_required){
+				$("#confirm_text").text("The mission failed with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
+				$("#mission_"+current_mission).addClass('btn-danger');
+			}
+			else{
+				$("#confirm_text").text("The mission succeeded with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
+				$("#mission_"+current_mission).addClass('btn-success');
+			}
+			current_mission = current_mission +1;
+			mission_text();
+			succeed_votes = 0;
+			fail_votes = 0;
+			num_votes = 0;
+			$("#mission_"+current_mission).addClass('active');
+
+		}
+
+		console.log(num_votes + " " + succeed_votes + " " + fail_votes);
+
+
 	});
 
 	
