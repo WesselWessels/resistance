@@ -57,7 +57,23 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>	
-
+		<div class="row" id="mission_div" style="text-align:center;">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				
+				<div class="btn-group">
+					<button type="button" class="btn btn-warning mission active" id="mission_1" value="1">1</button>
+					<button type="button" class="btn btn-warning mission" id="mission_2" value="2">2</button>
+					<button type="button" class="btn btn-warning mission" id="mission_3" value="3">3</button>
+					<button type="button" class="btn btn-warning mission" id="mission_4" value="4">4</button>
+					<button type="button" class="btn btn-warning mission" id="mission_5" value="5">5</button>	
+				</div>
+				<div>
+					<span id="mission_text"></span>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
 		
 	</body>
 </html>
@@ -69,12 +85,16 @@ var num_spies = 2;
 
 var players;
 var current_posistion = 1;
+var current_mission = 1;
 
+var people_on_mission = 2;
+var fails_required = 1;
 
 
 
 $(document).ready(function(){
 	$("#roles_div").hide();
+	$("#mission_div").hide();
 	$("#done_position_button").css('visibility', 'hidden');
 	$(".num_players").click(function(){
 		$(".num_players").removeClass('active');
@@ -82,6 +102,14 @@ $(document).ready(function(){
 		num_players = Number($(this).attr('value'));
 		get_game_parameters();
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+
+	});
+	$(".mission").click(function(){
+		$(".mission").removeClass('active');
+		$(this).addClass('active');
+		current_mission = Number($(this).attr('value'));
+		mission_text();
+		console.log(current_mission);
 
 	});
 	$("#start_game").click(function(){
@@ -109,6 +137,7 @@ $(document).ready(function(){
 		}
 		else{
 			$("#confirm_position").text("Roles are handed out");
+			$("#mission_div").show();
 
 		}
 
@@ -128,6 +157,7 @@ $(document).ready(function(){
 		console.log(players);
 	});
 
+	
 });
 
 function get_game_parameters(){
@@ -191,5 +221,129 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function mission_text(){
+	if(num_players ==5){
+		fails_required = 1;
+		if(current_mission ==1){
+			people_on_mission =2;
+			
+		}
+		else if(current_mission == 2){
+			people_on_mission = 3;
+		}
+		else if(current_mission == 3){
+			people_on_mission = 2;
+		}
+		else if(current_mission == 4){
+			people_on_mission = 3;
+		}
+		else if(current_mission == mission_5){
+			people_on_mission = 3;
+		}
+
+	}
+	else if(num_players ==6){
+		fails_required = 1;
+		if(current_mission ==1){
+			people_on_mission =2;
+			
+		}
+		else if(current_mission == 2){
+			people_on_mission = 3;
+		}
+		else if(current_mission == 3){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 4){
+			people_on_mission = 3;
+		}
+		else if(current_mission == 5){
+			people_on_mission = 4;
+		}
+	}
+	else if(num_players ==7){
+		fails_required = 1;
+		if(current_mission ==1){
+			people_on_mission =2;
+			
+		}
+		else if(current_mission == 2){
+			people_on_mission = 3;
+		}
+		else if(current_mission == 3){
+			people_on_mission = 3;
+		}
+		else if(current_mission == 4){
+			people_on_mission = 4;
+			fails_required = 2;
+		}
+		else if(current_mission == 5){
+			people_on_mission = 4;
+		}
+	}
+	else if(num_players ==8){
+		fails_required = 1;
+		if(current_mission ==1){
+			people_on_mission =3;
+			
+		}
+		else if(current_mission == 2){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 3){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 4){
+			people_on_mission = 5;
+			fails_required = 2;
+		}
+		else if(current_mission == 5){
+			people_on_mission = 5;
+		}
+	}
+	else if(num_players ==9){
+		fails_required = 1;
+		if(current_mission ==1){
+			people_on_mission =3;
+			
+		}
+		else if(current_mission == 2){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 3){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 4){
+			people_on_mission = 5;
+			fails_required = 2;
+		}
+		else if(current_mission == 5){
+			people_on_mission = 5;
+		}
+	}
+	else if(num_players ==10){
+		fails_required = 1;
+		if(current_mission ==1){
+			people_on_mission =3;
+			
+		}
+		else if(current_mission == 2){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 3){
+			people_on_mission = 4;
+		}
+		else if(current_mission == 4){
+			people_on_mission = 5;
+			fails_required = 2;
+		}
+		else if(current_mission == 5){
+			people_on_mission = 5;
+		}
+	}
+	$("#mission_text").text(people_on_mission + " are needed for this mission with " + fails_required +" fail(s) required to fail the mission");
+
 }
 </script>
