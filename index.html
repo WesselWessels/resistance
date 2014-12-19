@@ -119,6 +119,7 @@ $(document).ready(function(){
 		$("#roles_div").show();
 		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
+		mission_text();
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 		console.log(players);
 	});
@@ -151,6 +152,7 @@ $(document).ready(function(){
 		$("#roles_div").hide();
 		$("#confirm_position_button").css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'hidden');
+		$("#mission_div").hide();
 		current_posistion = 1;
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
