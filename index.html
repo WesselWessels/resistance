@@ -24,7 +24,7 @@
 			
 		
 		</div>
-		<div class="container-fluid" style="text-align:center;">
+		<div class="container-fluid" style="text-align:center;" id="num_player_select">
 			<div class="btn-group">
 				<button type="button" class="btn btn-success num_players active" id="five" value="5">5</button>
 				<button type="button" class="btn btn-success num_players" id="six" value="6">6</button>
@@ -50,6 +50,8 @@
 				<span id="confirm_position"></span>
 				<div>
 					<button class="btn btn-success" id="confirm_position_button">Yes</button>
+				</div>
+				<div>
 					<button class="btn btn-danger" id="done_position_button">done</button>
 				</div>
 			</div>
@@ -73,7 +75,7 @@ var current_posistion = 1;
 
 $(document).ready(function(){
 	$("#roles_div").hide();
-	$("#done_position_button").hide();
+	$("#done_position_button").css('visibility', 'hidden');
 	$(".num_players").click(function(){
 		$(".num_players").removeClass('active');
 		$(this).addClass('active');
@@ -85,23 +87,24 @@ $(document).ready(function(){
 	$("#start_game").click(function(){
 		get_game_parameters();
 		$(this).hide();
-
+		$("#num_player_select").css('visibility', 'hidden');
 		$("#roles_div").show();
+		$("#confirm_position_button").show();
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 		console.log(players);
 	});
 	$("#confirm_position_button").click(function(){
-		$(this).hide();
-		$("#done_position_button").show();
+		$(this).css('visibility', 'hidden');
+		$("#done_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
 		current_posistion++;
 
 	});
 	$("#done_position_button").click(function(){
-		$(this).hide();
+		$(this).css('visibility', 'hidden');
 		if(current_posistion <= players.length){
-			$("#confirm_position_button").show();
+			$("#confirm_position_button").css('visibility', 'visible');
 			$("#confirm_position").text("Are you position " + current_posistion +"?");
 		}
 		else{
@@ -112,10 +115,12 @@ $(document).ready(function(){
 	});
 	$("#new_game").click(function(){
 		get_game_parameters();
+		$("#num_player_select").css('visibility', 'visible');
 		$("#roles_div").hide();
 		$("#done_position_button").hide();
-		$("#roles_div").show();
-		$("#confirm_position_button").show();
+		$("#start_game").show();
+		$("#roles_div").hide();
+		$("#confirm_position_button").hide();
 		$("#done_position_button").hide();
 		current_posistion = 1;
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
