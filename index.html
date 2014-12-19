@@ -86,10 +86,10 @@ $(document).ready(function(){
 	});
 	$("#start_game").click(function(){
 		get_game_parameters();
-		$(this).hide();
+		$(this).css('visibility', 'hidden');
 		$("#num_player_select").css('visibility', 'hidden');
 		$("#roles_div").show();
-		$("#confirm_position_button").show();
+		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 		console.log(players);
@@ -117,11 +117,11 @@ $(document).ready(function(){
 		get_game_parameters();
 		$("#num_player_select").css('visibility', 'visible');
 		$("#roles_div").hide();
-		$("#done_position_button").hide();
-		$("#start_game").show();
+		$("#done_position_button").css('visibility', 'hidden');
+		$("#start_game").css('visibility', 'visible');
 		$("#roles_div").hide();
-		$("#confirm_position_button").hide();
-		$("#done_position_button").hide();
+		$("#confirm_position_button").css('visibility', 'hidden');
+		$("#done_position_button").css('visibility', 'hidden');
 		current_posistion = 1;
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
