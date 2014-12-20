@@ -89,6 +89,7 @@
 				</div>
 			</div>
 			<div class="col-md-2"></div>
+			<br><br><br><br><br><br><br><br><br><br><br><br>
 		</div>
 		
 	</body>
@@ -130,7 +131,8 @@ $(document).ready(function(){
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 
 	});
-	$(".mission").click(function(){
+	$(".mission").click(function(e){
+		e.preventDefault();
 		$(".mission").removeClass('active');
 		$(this).addClass('active');
 		current_mission = Number($(this).attr('value'));
@@ -138,7 +140,8 @@ $(document).ready(function(){
 		console.log(current_mission);
 
 	});
-	$("#start_game").click(function(){
+	$("#start_game").click(function(e){
+		e.preventDefault();
 		get_game_parameters();
 		$(this).css('visibility', 'hidden');
 
@@ -150,14 +153,16 @@ $(document).ready(function(){
 		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
 		console.log(players);
 	});
-	$("#confirm_position_button").click(function(){
+	$("#confirm_position_button").click(function(e){
+		e.preventDefault();
 		$(this).css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
 		current_posistion++;
 
 	});
-	$("#done_position_button").click(function(){
+	$("#done_position_button").click(function(e){
+		e.preventDefault();
 		$(this).css('visibility', 'hidden');
 		if(current_posistion <= players.length){
 			$("#confirm_position_button").css('visibility', 'visible');
@@ -170,7 +175,8 @@ $(document).ready(function(){
 		}
 
 	});
-	$("#new_game").click(function(){
+	$("#new_game").click(function(e){
+		e.preventDefault();
 		get_game_parameters();
 		$("#num_player_select").css('visibility', 'visible');
 		$("#roles_div").hide();
@@ -206,7 +212,8 @@ $(document).ready(function(){
 		console.log(players);
 	});
 
-	$("#start_mission").click(function(){
+	$("#start_mission").click(function(e){
+		e.preventDefault();
 		$(this).css('visibility', 'hidden');
 		$("#mission_buttons").css('visibility', 'hidden');
 		$("#mission_vote").show();
@@ -216,7 +223,8 @@ $(document).ready(function(){
 
 	});
 
-	$(".vote").click(function(){
+	$(".vote").click(function(e){
+		e.preventDefault();
 		$(".vote").css('visibility', 'hidden');
 		current_vote = $(this).attr('value');
 		$("#confirm_text").text("Are you sure you want to " + current_vote +"?");
@@ -224,7 +232,8 @@ $(document).ready(function(){
 		console.log(current_vote);
 
 	});
-	$(".vote_confirm").click(function(){
+	$(".vote_confirm").click(function(e){
+		e.preventDefault();
 		$(".vote_confirm").css('visibility', 'hidden');
 		$(".vote").css('visibility', 'visible');
 		//current_vote = $(this).attr('value');
@@ -263,7 +272,7 @@ $(document).ready(function(){
 			if(spies_wins == 3){
 				$("#mission_voter").text("Game over - Spies wins");
 				$("#start_mission").css('visibility', 'hidden');
-				
+
 			}
 			current_mission = current_mission +1;
 			mission_text();
