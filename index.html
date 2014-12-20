@@ -73,7 +73,8 @@
 					<span id="mission_text"></span>
 				</div>
 				<div>
-					<button type="button" class="btn btn-success" id="start_mission">Start Mission</button>	
+					<button type="button" class="btn btn-success" id="start_mission">Start Mission</button>
+					<div id="mission_voter"></div>
 				</div>
 				<div id="mission_vote">
 					<button type="button" class="btn btn-success vote" id="succeed" value="succeed">succeed</button>	
@@ -110,6 +111,9 @@ var current_vote;
 var num_votes = 0;
 var succeed_votes = 0;
 var fail_votes = 0;
+
+var resistance_wins = 0;
+var spies_wins = 0;
 
 
 $(document).ready(function(){
@@ -176,12 +180,15 @@ $(document).ready(function(){
 		$("#confirm_position_button").css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#mission_div").hide();
+		$("#mission_voter").text("");
 		current_posistion = 1;
 		current_mission = 1;
 		mission_text();
 		succeed_votes = 0;
 		fail_votes = 0;
 		num_votes = 0;
+		resistance_wins = 0;
+		spies_wins = 0;
 
 		$("#mission_buttons").css('visibility', 'visible');
 		$("#start_mission").css('visibility', 'visible');
@@ -205,6 +212,8 @@ $(document).ready(function(){
 		$("#mission_vote").show();
 		$("#confirm_text").text("");
 		$(".vote").css('visibility', 'visible');
+		$("#mission_voter").text(num_votes+1 +" of " + people_on_mission);
+
 	});
 
 	$(".vote").click(function(){
@@ -222,26 +231,39 @@ $(document).ready(function(){
 		$("#confirm_text").text("");
 		$("#vote_confirm").show();
 		if($(this).attr('value') == "yes"){
+			num_votes = num_votes +1;
+			$("#mission_voter").text(num_votes+1 +" of " + people_on_mission);
 			if(current_vote == "succeed"){
 				succeed_votes = succeed_votes +1;
-				num_votes = num_votes +1;
+				
 			}
 			else{
 				fail_votes = fail_votes +1;
-				num_votes = num_votes +1;
 			}
 		}
 		if (num_votes == people_on_mission){
 			$(".vote").css('visibility', 'hidden');
 			$("#start_mission").css('visibility', 'visible');
-			$("#mission_"+current_mission).removeClass('btn-warning active');
+			$("#mission_"+current_mission).removeClass('btn-warning btn-success btn-danger active');
+			$("#mission_voter").text("");
 			if(fail_votes >= fails_required){
 				$("#confirm_text").text("The mission failed with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
 				$("#mission_"+current_mission).addClass('btn-danger');
+				spies_wins++;
 			}
 			else{
 				$("#confirm_text").text("The mission succeeded with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
 				$("#mission_"+current_mission).addClass('btn-success');
+				resistance_wins++;
+			}
+			if(resistance_wins == 3){
+				$("#mission_voter").text("Game over - Resistance wins");
+				$("#start_mission").css('visibility', 'hidden');
+			}
+			if(spies_wins == 3){
+				$("#mission_voter").text("Game over - Spies wins");
+				$("#start_mission").css('visibility', 'hidden');
+				
 			}
 			current_mission = current_mission +1;
 			mission_text();
