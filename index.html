@@ -12,10 +12,28 @@
 			    overflow-x: hidden;
 			    font-size: 110%;
 			}
+			.navbar{
+				/*background-color: #D9534F;*/
+				background-color: #5CB85C;
+			}
 		</style>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 	</head>
 	<body>
+		<div class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<a href="#" class="navbar-brand" style="color:black">Resistance</a>
+				<!-- <div class="collapse navbar-collapse navHeaderCollapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="#">Home</a></li>
+						<li id="register_li"><a href="#" id="register">Register</a></li>
+						<li id="login_li"><a href="#" id="login">Login</a></li>
+						<li id ="friends_li"><a href="#" id="friends">Friends</a></li>
+						<li id="logout"><a href="#">Logout</a></li>
+					</ul>
+				</div> -->
+			</div>
+		</div>
 		<div class="container-fluid" style="text-align:center;">
 			<div>
 				<button class="btn btn-danger" id="new_game">New Game</button>
@@ -146,6 +164,7 @@ $(document).ready(function(){
 		$(this).css('visibility', 'hidden');
 
 		$("#num_player_select").css('visibility', 'hidden');
+		$(".navbar").css('background-color', '#5CB85C'); //green
 		$("#roles_div").show();
 		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
@@ -155,6 +174,7 @@ $(document).ready(function(){
 	});
 	$("#confirm_position_button").click(function(e){
 		e.preventDefault();
+		$(".navbar").css('background-color', '#D9534F'); //red
 		$(this).css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
@@ -163,6 +183,7 @@ $(document).ready(function(){
 	});
 	$("#done_position_button").click(function(e){
 		e.preventDefault();
+		$(".navbar").css('background-color', '#5CB85C'); //green
 		$(this).css('visibility', 'hidden');
 		if(current_posistion <= players.length){
 			$("#confirm_position_button").css('visibility', 'visible');
@@ -179,6 +200,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		get_game_parameters();
 		$("#num_player_select").css('visibility', 'visible');
+		$(".navbar").css('background-color', '#5CB85C'); //green
 		$("#roles_div").hide();
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#start_game").css('visibility', 'visible');
@@ -225,6 +247,7 @@ $(document).ready(function(){
 
 	$(".vote").click(function(e){
 		e.preventDefault();
+		$(".navbar").css('background-color', '#D9534F'); //red
 		$(".vote").css('visibility', 'hidden');
 		current_vote = $(this).attr('value');
 		$("#confirm_text").text("Are you sure you want to " + current_vote +"?");
@@ -240,6 +263,7 @@ $(document).ready(function(){
 		$("#confirm_text").text("");
 		$("#vote_confirm").show();
 		if($(this).attr('value') == "yes"){
+			$(".navbar").css('background-color', '#5CB85C'); //green
 			num_votes = num_votes +1;
 			$("#mission_voter").text(num_votes+1 +" of " + people_on_mission);
 			if(current_vote == "succeed"){
