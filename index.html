@@ -191,6 +191,7 @@ $(document).ready(function(){
 		}
 		else{
 			$("#confirm_position").text("Roles are handed out");
+			$("#roles_div").hide();
 			$("#mission_div").show();
 
 		}
@@ -199,6 +200,7 @@ $(document).ready(function(){
 	$("#new_game").click(function(e){
 		e.preventDefault();
 		get_game_parameters();
+		$("#roles_div").show();
 		$("#num_player_select").css('visibility', 'visible');
 		$(".navbar").css('background-color', '#5CB85C'); //green
 		$("#roles_div").hide();
