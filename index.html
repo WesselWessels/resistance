@@ -184,7 +184,7 @@ $(document).ready(function(){
 		if(players[current_posistion-1] == 'resistance'){
 			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
-		else{
+		else if(players[current_posistion-1] == 'spy'){
 			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
 		current_posistion++;
