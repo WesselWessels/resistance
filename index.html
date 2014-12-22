@@ -12,13 +12,31 @@
 			    overflow-x: hidden;
 			    font-size: 110%;
 			}
+			.navbar{
+				/*background-color: #D9534F;*/
+				background-color: #5CB85C;
+			}
 		</style>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 	</head>
 	<body>
+		<div class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<a href="#" class="navbar-brand" style="color:black">Resistance</a>
+				<!-- <div class="collapse navbar-collapse navHeaderCollapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="#">Home</a></li>
+						<li id="register_li"><a href="#" id="register">Register</a></li>
+						<li id="login_li"><a href="#" id="login">Login</a></li>
+						<li id ="friends_li"><a href="#" id="friends">Friends</a></li>
+						<li id="logout"><a href="#">Logout</a></li>
+					</ul>
+				</div> -->
+			</div>
+		</div>
 		<div class="container-fluid" style="text-align:center;">
 			<div>
-				<button class="btn btn-danger" id="new_game">New Game</button>
+				<button class="btn btn-lg btn-danger" id="new_game">New Game</button>
 			</div>
 			
 			
@@ -27,12 +45,12 @@
 		</div>
 		<div class="container-fluid" style="text-align:center;" id="num_player_select">
 			<div class="btn-group">
-				<button type="button" class="btn btn-info num_players active" id="five" value="5">5</button>
-				<button type="button" class="btn btn-info num_players" id="six" value="6">6</button>
-				<button type="button" class="btn btn-info num_players" id="seven" value="7">7</button>
-				<button type="button" class="btn btn-info num_players" id="eight" value="8">8</button>
-				<button type="button" class="btn btn-info num_players" id="nine" value="9">9</button>
-				<button type="button" class="btn btn-info num_players" id="ten" value="10">10</button>		
+				<button type="button" class="btn btn-lg btn-info num_players active" id="five" value="5">5</button>
+				<button type="button" class="btn btn-lg btn-info num_players" id="six" value="6">6</button>
+				<button type="button" class="btn btn-lg btn-info num_players" id="seven" value="7">7</button>
+				<button type="button" class="btn btn-lg btn-info num_players" id="eight" value="8">8</button>
+				<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
+				<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
 			</div>
 			
 			
@@ -41,7 +59,7 @@
 		<div class="row" id="start_button_div" style="text-align:center;">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<button class="btn btn-success" id="start_game">Start</button>
+				<button class="btn btn-lg btn-success" id="start_game">Start</button>
 			</div>
 			<div class="col-md-2"></div>
 		</div>	
@@ -50,10 +68,10 @@
 			<div class="col-md-8">
 				<span id="confirm_position"></span>
 				<div>
-					<button class="btn btn-success" id="confirm_position_button">Yes</button>
+					<button class="btn btn-lg btn-success" id="confirm_position_button">Yes</button>
 				</div>
 				<div>
-					<button class="btn btn-danger" id="done_position_button">done</button>
+					<button class="btn btn-lg btn-danger" id="done_position_button">done</button>
 				</div>
 			</div>
 			<div class="col-md-2"></div>
@@ -63,28 +81,28 @@
 			<div class="col-md-8">
 				
 				<div class="btn-group" id="mission_buttons">
-					<button type="button" class="btn btn-warning mission active" id="mission_1" value="1">1</button>
-					<button type="button" class="btn btn-warning mission" id="mission_2" value="2">2</button>
-					<button type="button" class="btn btn-warning mission" id="mission_3" value="3">3</button>
-					<button type="button" class="btn btn-warning mission" id="mission_4" value="4">4</button>
-					<button type="button" class="btn btn-warning mission" id="mission_5" value="5">5</button>	
+					<button type="button" class="btn btn-lg btn-warning mission active" id="mission_1" value="1">1</button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_2" value="2">2</button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_3" value="3">3</button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_4" value="4">4</button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_5" value="5">5</button>	
 				</div>
 				<div>
 					<span id="mission_text"></span>
 				</div>
 				<div>
-					<button type="button" class="btn btn-success" id="start_mission">Start Mission</button>
+					<button type="button" class="btn btn-lg btn-success" id="start_mission">Start Mission</button>
 					<div id="mission_voter"></div>
 				</div>
 				<div id="mission_vote">
-					<button type="button" class="btn btn-success vote" id="succeed" value="succeed">succeed</button>	
-					<button type="button" class="btn btn-danger vote" id="fail" value="fail">fail</button>	
+					<button type="button" class="btn btn-lg btn-success vote" id="succeed" value="succeed">succeed</button>	
+					<button type="button" class="btn btn-lg btn-danger vote" id="fail" value="fail">fail</button>	
 					<div id="vote_confirm">
 						<div id="confirm_text">
 
 						</div>
-						<button type="button" class="btn btn-success vote_confirm" value="yes">yes</button>	
-						<button type="button" class="btn btn-danger vote_confirm"  value="no">no</button>	
+						<button type="button" class="btn btn-lg btn-success vote_confirm" value="yes">yes</button>	
+						<button type="button" class="btn btn-lg btn-danger vote_confirm"  value="no">no</button>	
 					</div>
 				</div>
 			</div>
@@ -146,6 +164,7 @@ $(document).ready(function(){
 		$(this).css('visibility', 'hidden');
 
 		$("#num_player_select").css('visibility', 'hidden');
+		$(".navbar").css('background-color', '#5CB85C'); //green
 		$("#roles_div").show();
 		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
@@ -155,6 +174,7 @@ $(document).ready(function(){
 	});
 	$("#confirm_position_button").click(function(e){
 		e.preventDefault();
+		$(".navbar").css('background-color', '#D9534F'); //red
 		$(this).css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
@@ -163,6 +183,7 @@ $(document).ready(function(){
 	});
 	$("#done_position_button").click(function(e){
 		e.preventDefault();
+		$(".navbar").css('background-color', '#5CB85C'); //green
 		$(this).css('visibility', 'hidden');
 		if(current_posistion <= players.length){
 			$("#confirm_position_button").css('visibility', 'visible');
@@ -179,6 +200,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		get_game_parameters();
 		$("#num_player_select").css('visibility', 'visible');
+		$(".navbar").css('background-color', '#5CB85C'); //green
 		$("#roles_div").hide();
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#start_game").css('visibility', 'visible');
@@ -225,6 +247,7 @@ $(document).ready(function(){
 
 	$(".vote").click(function(e){
 		e.preventDefault();
+		$(".navbar").css('background-color', '#D9534F'); //red
 		$(".vote").css('visibility', 'hidden');
 		current_vote = $(this).attr('value');
 		$("#confirm_text").text("Are you sure you want to " + current_vote +"?");
@@ -240,6 +263,7 @@ $(document).ready(function(){
 		$("#confirm_text").text("");
 		$("#vote_confirm").show();
 		if($(this).attr('value') == "yes"){
+			$(".navbar").css('background-color', '#5CB85C'); //green
 			num_votes = num_votes +1;
 			$("#mission_voter").text(num_votes+1 +" of " + people_on_mission);
 			if(current_vote == "succeed"){
