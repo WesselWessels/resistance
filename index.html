@@ -43,43 +43,47 @@
 			
 		
 		</div>
-		<div class="container-fluid" style="text-align:center;" id="num_player_select">
-			<div class="btn-group">
-				<button type="button" class="btn btn-lg btn-info num_players active" id="five" value="5">5</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="six" value="6">6</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="seven" value="7">7</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="eight" value="8">8</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
+		<div id="to_hide">
+			<div class="container-fluid" style="text-align:center;" id="num_player_select">
+				<br>
+				<div class="btn-group">
+					<button type="button" class="btn btn-lg btn-info num_players active" id="five" value="5">5</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="six" value="6">6</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="seven" value="7">7</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="eight" value="8">8</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
+				</div>
+				
+				
+				
 			</div>
-			
-			
-			
+			<div class="row" id="start_button_div" style="text-align:center;">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<br>
+					<button class="btn btn-lg btn-success" id="start_game">Start</button>
+				</div>
+				<div class="col-md-2"></div>
+			</div>	
+			<div class="row" id="roles_div" style="text-align:center;">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<span id="confirm_position"></span>
+					<div>
+						<button class="btn btn-lg btn-success" id="confirm_position_button">Yes</button>
+					</div>
+					<div>
+						<button class="btn btn-lg btn-danger" id="done_position_button">done</button>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>	
 		</div>
-		<div class="row" id="start_button_div" style="text-align:center;">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<button class="btn btn-lg btn-success" id="start_game">Start</button>
-			</div>
-			<div class="col-md-2"></div>
-		</div>	
-		<div class="row" id="roles_div" style="text-align:center;">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<span id="confirm_position"></span>
-				<div>
-					<button class="btn btn-lg btn-success" id="confirm_position_button">Yes</button>
-				</div>
-				<div>
-					<button class="btn btn-lg btn-danger" id="done_position_button">done</button>
-				</div>
-			</div>
-			<div class="col-md-2"></div>
-		</div>	
 		<div class="row" id="mission_div" style="text-align:center;">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				
+				<br>
 				<div class="btn-group" id="mission_buttons">
 					<button type="button" class="btn btn-lg btn-warning mission active" id="mission_1" value="1">1</button>
 					<button type="button" class="btn btn-lg btn-warning mission" id="mission_2" value="2">2</button>
@@ -177,7 +181,12 @@ $(document).ready(function(){
 		$(".navbar").css('background-color', '#D9534F'); //red
 		$(this).css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'visible');
-		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
+		if(players[current_posistion-1] == 'resistance'){
+			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		else{
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
 		current_posistion++;
 
 	});
@@ -191,7 +200,7 @@ $(document).ready(function(){
 		}
 		else{
 			$("#confirm_position").text("Roles are handed out");
-			$("#roles_div").hide();
+			$("#to_hide").hide();
 			$("#mission_div").show();
 
 		}
@@ -206,7 +215,7 @@ $(document).ready(function(){
 		$("#roles_div").hide();
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#start_game").css('visibility', 'visible');
-		$("#roles_div").hide();
+		$("#to_hide").show();
 		$("#confirm_position_button").css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#mission_div").hide();
