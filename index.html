@@ -336,7 +336,7 @@ $(document).ready(function(){
 	$("#get_leader").click(function(){
 		$(this).hide();
 		var the_leader = Math.floor(Math.random()*num_players) + 1;
-		$("#leader").html("The leader is "+the_leader);
+		$("#leader").html("The leader is player "+the_leader);
 		$("#start_mission").css('visibility', 'visible');
 	});
 
