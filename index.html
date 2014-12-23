@@ -96,6 +96,10 @@
 				</div>
 				<div>
 					<button type="button" class="btn btn-lg btn-success" id="start_mission">Start Mission</button>
+					<div>
+						<button type="button" class="btn btn-lg btn-success" id="get_leader">Get Leader</button>
+						<div id="leader"></div>
+					</div>
 					<div id="mission_voter"></div>
 				</div>
 				<div id="mission_vote">
@@ -143,6 +147,7 @@ $(document).ready(function(){
 	$("#roles_div").hide();
 	$("#mission_div").hide();
 	$("#mission_vote").hide();
+	//$("#get").hide();
 	$(".vote_confirm").css('visibility', 'hidden');
 	$("#done_position_button").css('visibility', 'hidden');
 	$(".num_players").click(function(){
@@ -202,6 +207,7 @@ $(document).ready(function(){
 			$("#confirm_position").text("Roles are handed out");
 			$("#to_hide").hide();
 			$("#mission_div").show();
+			$("#start_mission").css('visibility', 'hidden');
 
 		}
 
@@ -220,6 +226,8 @@ $(document).ready(function(){
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#mission_div").hide();
 		$("#mission_voter").text("");
+		$("#get_leader").show();
+		$("#leader").text("");
 		current_posistion = 1;
 		current_mission = 1;
 		mission_text();
@@ -253,6 +261,7 @@ $(document).ready(function(){
 		$("#confirm_text").text("");
 		$(".vote").css('visibility', 'visible');
 		$("#mission_voter").text(num_votes+1 +" of " + people_on_mission);
+		$("#leader").text("");
 
 	});
 
@@ -322,6 +331,13 @@ $(document).ready(function(){
 		console.log(num_votes + " " + succeed_votes + " " + fail_votes);
 
 
+	});
+
+	$("#get_leader").click(function(){
+		$(this).hide();
+		var the_leader = Math.floor(Math.random()*num_players) + 1;
+		$("#leader").html("The leader is "+the_leader);
+		$("#start_mission").css('visibility', 'visible');
 	});
 
 	
