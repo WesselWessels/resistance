@@ -85,11 +85,11 @@
 			<div class="col-md-8">
 				<br>
 				<div class="btn-group" id="mission_buttons">
-					<button type="button" class="btn btn-lg btn-warning mission active" id="mission_1" value="1">1</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_2" value="2">2</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_3" value="3">3</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_4" value="4">4</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_5" value="5">5</button>	
+					<button type="button" class="btn btn-lg btn-warning mission active" id="mission_1" value="1">1<sup id="one_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_2" value="2">2<sup id="two_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_3" value="3">3<sup id="three_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_4" value="4">4<sup id="four_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_5" value="5">5<sup id="five_number"></sup></button>	
 				</div>
 				<div>
 					<span id="mission_text"></span>
@@ -425,6 +425,11 @@ function mission_text(){
 		else if(current_mission == mission_5){
 			people_on_mission = 3;
 		}
+		$("#one_number").text("2");
+		$("#two_number").text("3");
+		$("#three_number").text("2");
+		$("#four_number").text("3");
+		$("#five_number").text("3");
 
 	}
 	else if(num_players ==6){
@@ -445,6 +450,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 4;
 		}
+		$("#one_number").text("2");
+		$("#two_number").text("3");
+		$("#three_number").text("4");
+		$("#four_number").text("3");
+		$("#five_number").text("4");
 	}
 	else if(num_players ==7){
 		fails_required = 1;
@@ -465,6 +475,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 4;
 		}
+		$("#one_number").text("2");
+		$("#two_number").text("3");
+		$("#three_number").text("3");
+		$("#four_number").text("4*");
+		$("#five_number").text("4");
 	}
 	else if(num_players ==8){
 		fails_required = 1;
@@ -485,6 +500,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 5;
 		}
+		$("#one_number").text("3");
+		$("#two_number").text("4");
+		$("#three_number").text("4");
+		$("#four_number").text("5*");
+		$("#five_number").text("5");
 	}
 	else if(num_players ==9){
 		fails_required = 1;
@@ -505,6 +525,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 5;
 		}
+		$("#one_number").text("3");
+		$("#two_number").text("4");
+		$("#three_number").text("4");
+		$("#four_number").text("5*");
+		$("#five_number").text("5");
 	}
 	else if(num_players ==10){
 		fails_required = 1;
@@ -525,6 +550,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 5;
 		}
+		$("#one_number").text("3");
+		$("#two_number").text("4");
+		$("#three_number").text("4");
+		$("#four_number").text("5*");
+		$("#five_number").text("5");
 	}
 	$("#mission_text").text(people_on_mission + " are needed for mission " + current_mission+ " with " + fails_required +" fail(s) required to fail the mission");
 
