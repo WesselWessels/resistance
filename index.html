@@ -123,8 +123,8 @@
 <script type="text/javascript">
 
 var num_players = 5;
-var num_resistance = 3;
-var num_spies = 2;
+var num_good = 3;
+var num_bad = 2;
 
 var players;
 var current_posistion = 1;
@@ -139,8 +139,8 @@ var num_votes = 0;
 var succeed_votes = 0;
 var fail_votes = 0;
 
-var resistance_wins = 0;
-var spies_wins = 0;
+var good_wins = 0;
+var bad_wins = 0;
 
 
 $(document).ready(function(){
@@ -155,7 +155,7 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		num_players = Number($(this).attr('value'));
 		get_game_parameters();
-		console.log("players: " + num_players + " good: "+ num_resistance + " bad: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 
 	});
 	$(".mission").click(function(e){
@@ -178,7 +178,7 @@ $(document).ready(function(){
 		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		mission_text();
-		console.log("players: " + num_players + " good: "+ num_resistance + " bad: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 		console.log(players);
 	});
 	$("#confirm_position_button").click(function(e){
@@ -234,8 +234,8 @@ $(document).ready(function(){
 		succeed_votes = 0;
 		fail_votes = 0;
 		num_votes = 0;
-		resistance_wins = 0;
-		spies_wins = 0;
+		good_wins = 0;
+		bad_wins = 0;
 
 		$("#mission_buttons").css('visibility', 'visible');
 		$("#start_mission").css('visibility', 'visible');
@@ -249,7 +249,7 @@ $(document).ready(function(){
 		$("#mission_1").addClass('active');
 
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
-		console.log("players: " + num_players + " good: "+ num_resistance + " bad: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 		console.log(players);
 	});
 
@@ -302,18 +302,18 @@ $(document).ready(function(){
 			if(fail_votes >= fails_required){
 				$("#confirm_text").text("The mission failed with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
 				$("#mission_"+current_mission).addClass('btn-danger');
-				spies_wins++;
+				bad_wins++;
 			}
 			else{
 				$("#confirm_text").text("The mission succeeded with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
 				$("#mission_"+current_mission).addClass('btn-success');
-				resistance_wins++;
+				good_wins++;
 			}
-			if(resistance_wins == 3){
+			if(good_wins == 3){
 				$("#mission_voter").text("Game over - Good wins");
 				$("#start_mission").css('visibility', 'hidden');
 			}
-			if(spies_wins == 3){
+			if(good_wins == 3){
 				$("#mission_voter").text("Game over - bad wins");
 				$("#start_mission").css('visibility', 'hidden');
 
@@ -345,34 +345,34 @@ $(document).ready(function(){
 
 function get_game_parameters(){
 	if(num_players == 5){
-		num_resistance = 3;
-		num_spies = 2;
+		num_good = 3;
+		num_bad = 2;
 	}
 	else if(num_players == 6){
-		num_resistance = 4;
-		num_spies = 2;
+		num_good = 4;
+		num_bad = 2;
 	}
 	else if(num_players == 7){
-		num_resistance = 4;
-		num_spies = 3;
+		num_good = 4;
+		num_bad = 3;
 	}
 	else if(num_players == 8){
-		num_resistance = 5;
-		num_spies = 3;
+		num_good = 5;
+		num_bad = 3;
 	}
 	else if(num_players == 9){
-		num_resistance = 6;
-		num_spies = 3;
+		num_good = 6;
+		num_bad = 3;
 	}
 	else if(num_players == 10){
-		num_resistance = 6;
-		num_spies = 4;
+		num_good = 6;
+		num_bad = 4;
 	}
 	players = new Array(num_players);
-	for(var i = 0; i < num_resistance; i++){
+	for(var i = 0; i < num_good; i++){
 		players[i] = "good";
 	}
-	for(var i = num_resistance; i < num_players; i++){
+	for(var i = num_good; i < num_players; i++){
 		players[i] = "bad";
 	}
 	players = shuffle(players);
