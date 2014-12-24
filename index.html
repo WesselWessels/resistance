@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>The Resistance</title>
+		<title>Good vs Bad</title>
 		<script src="js/jquery-2.1.1.js"></script>
 		<!-- <link rel="shortcut icon" href="maze.ico"> -->
 		<link rel="stylesheet" href="css/bootstrap.css">
@@ -22,7 +22,7 @@
 	<body>
 		<div class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
-				<a href="#" class="navbar-brand" style="color:black">Resistance</a>
+				<a href="#" class="navbar-brand" style="color:black">Good vs Bad</a>
 				<!-- <div class="collapse navbar-collapse navHeaderCollapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="#">Home</a></li>
@@ -155,7 +155,7 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		num_players = Number($(this).attr('value'));
 		get_game_parameters();
-		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_resistance + " bad: "+ num_spies);
 
 	});
 	$(".mission").click(function(e){
@@ -178,7 +178,7 @@ $(document).ready(function(){
 		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		mission_text();
-		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_resistance + " bad: "+ num_spies);
 		console.log(players);
 	});
 	$("#confirm_position_button").click(function(e){
@@ -186,10 +186,10 @@ $(document).ready(function(){
 		$(".navbar").css('background-color', '#D9534F'); //red
 		$(this).css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'visible');
-		if(players[current_posistion-1] == 'resistance'){
+		if(players[current_posistion-1] == 'good'){
 			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
-		else if(players[current_posistion-1] == 'spy'){
+		else if(players[current_posistion-1] == 'bad'){
 			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
 		current_posistion++;
@@ -249,7 +249,7 @@ $(document).ready(function(){
 		$("#mission_1").addClass('active');
 
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
-		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_resistance + " bad: "+ num_spies);
 		console.log(players);
 	});
 
@@ -310,11 +310,11 @@ $(document).ready(function(){
 				resistance_wins++;
 			}
 			if(resistance_wins == 3){
-				$("#mission_voter").text("Game over - Resistance wins");
+				$("#mission_voter").text("Game over - Good wins");
 				$("#start_mission").css('visibility', 'hidden');
 			}
 			if(spies_wins == 3){
-				$("#mission_voter").text("Game over - Spies wins");
+				$("#mission_voter").text("Game over - bad wins");
 				$("#start_mission").css('visibility', 'hidden');
 
 			}
@@ -370,10 +370,10 @@ function get_game_parameters(){
 	}
 	players = new Array(num_players);
 	for(var i = 0; i < num_resistance; i++){
-		players[i] = "resistance";
+		players[i] = "good";
 	}
 	for(var i = num_resistance; i < num_players; i++){
-		players[i] = "spy";
+		players[i] = "bad";
 	}
 	players = shuffle(players);
 	players = shuffle(players);
