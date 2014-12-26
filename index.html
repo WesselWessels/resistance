@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>The Resistance</title>
+		<title>Good vs Bad</title>
 		<script src="js/jquery-2.1.1.js"></script>
 		<!-- <link rel="shortcut icon" href="maze.ico"> -->
 		<link rel="stylesheet" href="css/bootstrap.css">
@@ -17,12 +17,22 @@
 				background-color: #5CB85C;
 			}
 		</style>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-58018141-1', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
-				<a href="#" class="navbar-brand" style="color:black">Resistance</a>
+				<a href="#" class="navbar-brand" style="color:black">Good vs Bad</a>
 				<!-- <div class="collapse navbar-collapse navHeaderCollapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="#">Home</a></li>
@@ -32,66 +42,75 @@
 						<li id="logout"><a href="#">Logout</a></li>
 					</ul>
 				</div> -->
+				<div class="navbar-collapse">
+					<button class="btn navbar-btn btn-danger" id="new_game">New Game</button>
+				</div>
 			</div>
 		</div>
 		<div class="container-fluid" style="text-align:center;">
-			<div>
-				<button class="btn btn-lg btn-danger" id="new_game">New Game</button>
-			</div>
+			
 			
 			
 			
 		
 		</div>
-		<div class="container-fluid" style="text-align:center;" id="num_player_select">
-			<div class="btn-group">
-				<button type="button" class="btn btn-lg btn-info num_players active" id="five" value="5">5</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="six" value="6">6</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="seven" value="7">7</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="eight" value="8">8</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
-				<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
+		<div id="to_hide">
+			<div class="container-fluid" style="text-align:center;" id="num_player_select">
+				<br>
+				<div class="btn-group">
+					<button type="button" class="btn btn-lg btn-info num_players active" id="five" value="5">5</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="six" value="6">6</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="seven" value="7">7</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="eight" value="8">8</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
+					<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
+				</div>
+				
+				
+				
 			</div>
-			
-			
-			
+			<div class="row" id="start_button_div" style="text-align:center;">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<br>
+					<button class="btn btn-lg btn-success" id="start_game">Start</button>
+				</div>
+				<div class="col-md-2"></div>
+			</div>	
+			<div class="row" id="roles_div" style="text-align:center;">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<span id="confirm_position"></span>
+					<div>
+						<button class="btn btn-lg btn-success" id="confirm_position_button">Yes</button>
+					</div>
+					<div>
+						<button class="btn btn-lg btn-danger" id="done_position_button">done</button>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>	
 		</div>
-		<div class="row" id="start_button_div" style="text-align:center;">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<button class="btn btn-lg btn-success" id="start_game">Start</button>
-			</div>
-			<div class="col-md-2"></div>
-		</div>	
-		<div class="row" id="roles_div" style="text-align:center;">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<span id="confirm_position"></span>
-				<div>
-					<button class="btn btn-lg btn-success" id="confirm_position_button">Yes</button>
-				</div>
-				<div>
-					<button class="btn btn-lg btn-danger" id="done_position_button">done</button>
-				</div>
-			</div>
-			<div class="col-md-2"></div>
-		</div>	
 		<div class="row" id="mission_div" style="text-align:center;">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				
+				<br>
 				<div class="btn-group" id="mission_buttons">
-					<button type="button" class="btn btn-lg btn-warning mission active" id="mission_1" value="1">1</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_2" value="2">2</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_3" value="3">3</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_4" value="4">4</button>
-					<button type="button" class="btn btn-lg btn-warning mission" id="mission_5" value="5">5</button>	
+					<button type="button" class="btn btn-lg btn-warning mission active" id="mission_1" value="1">1<sup id="one_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_2" value="2">2<sup id="two_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_3" value="3">3<sup id="three_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_4" value="4">4<sup id="four_number"></sup></button>
+					<button type="button" class="btn btn-lg btn-warning mission" id="mission_5" value="5">5<sup id="five_number"></sup></button>	
 				</div>
 				<div>
 					<span id="mission_text"></span>
 				</div>
 				<div>
 					<button type="button" class="btn btn-lg btn-success" id="start_mission">Start Mission</button>
+					<div>
+						<button type="button" class="btn btn-lg btn-success" id="get_leader">Get Leader</button>
+						<div id="leader"></div>
+					</div>
 					<div id="mission_voter"></div>
 				</div>
 				<div id="mission_vote">
@@ -115,8 +134,8 @@
 <script type="text/javascript">
 
 var num_players = 5;
-var num_resistance = 3;
-var num_spies = 2;
+var num_good = 3;
+var num_bad = 2;
 
 var players;
 var current_posistion = 1;
@@ -131,14 +150,15 @@ var num_votes = 0;
 var succeed_votes = 0;
 var fail_votes = 0;
 
-var resistance_wins = 0;
-var spies_wins = 0;
+var good_wins = 0;
+var bad_wins = 0;
 
 
 $(document).ready(function(){
 	$("#roles_div").hide();
 	$("#mission_div").hide();
 	$("#mission_vote").hide();
+	//$("#get").hide();
 	$(".vote_confirm").css('visibility', 'hidden');
 	$("#done_position_button").css('visibility', 'hidden');
 	$(".num_players").click(function(){
@@ -146,7 +166,7 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		num_players = Number($(this).attr('value'));
 		get_game_parameters();
-		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 
 	});
 	$(".mission").click(function(e){
@@ -169,7 +189,7 @@ $(document).ready(function(){
 		$("#confirm_position_button").css('visibility', 'visible');
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
 		mission_text();
-		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 		console.log(players);
 	});
 	$("#confirm_position_button").click(function(e){
@@ -177,7 +197,12 @@ $(document).ready(function(){
 		$(".navbar").css('background-color', '#D9534F'); //red
 		$(this).css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'visible');
-		$("#confirm_position").text("Your role is "+ players[current_posistion-1]);
+		if(players[current_posistion-1] == 'good'){
+			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		else if(players[current_posistion-1] == 'bad'){
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
 		current_posistion++;
 
 	});
@@ -191,7 +216,9 @@ $(document).ready(function(){
 		}
 		else{
 			$("#confirm_position").text("Roles are handed out");
+			$("#to_hide").hide();
 			$("#mission_div").show();
+			$("#start_mission").css('visibility', 'hidden');
 
 		}
 
@@ -199,24 +226,27 @@ $(document).ready(function(){
 	$("#new_game").click(function(e){
 		e.preventDefault();
 		get_game_parameters();
+		$("#roles_div").show();
 		$("#num_player_select").css('visibility', 'visible');
 		$(".navbar").css('background-color', '#5CB85C'); //green
 		$("#roles_div").hide();
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#start_game").css('visibility', 'visible');
-		$("#roles_div").hide();
+		$("#to_hide").show();
 		$("#confirm_position_button").css('visibility', 'hidden');
 		$("#done_position_button").css('visibility', 'hidden');
 		$("#mission_div").hide();
 		$("#mission_voter").text("");
+		$("#get_leader").show();
+		$("#leader").text("");
 		current_posistion = 1;
 		current_mission = 1;
 		mission_text();
 		succeed_votes = 0;
 		fail_votes = 0;
 		num_votes = 0;
-		resistance_wins = 0;
-		spies_wins = 0;
+		good_wins = 0;
+		bad_wins = 0;
 
 		$("#mission_buttons").css('visibility', 'visible');
 		$("#start_mission").css('visibility', 'visible');
@@ -230,7 +260,7 @@ $(document).ready(function(){
 		$("#mission_1").addClass('active');
 
 		$("#confirm_position").text("Are you player "+current_posistion +"?");
-		console.log("players: " + num_players + " resistance: "+ num_resistance + " spies: "+ num_spies);
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 		console.log(players);
 	});
 
@@ -242,6 +272,7 @@ $(document).ready(function(){
 		$("#confirm_text").text("");
 		$(".vote").css('visibility', 'visible');
 		$("#mission_voter").text(num_votes+1 +" of " + people_on_mission);
+		$("#leader").text("");
 
 	});
 
@@ -282,19 +313,19 @@ $(document).ready(function(){
 			if(fail_votes >= fails_required){
 				$("#confirm_text").text("The mission failed with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
 				$("#mission_"+current_mission).addClass('btn-danger');
-				spies_wins++;
+				bad_wins++;
 			}
 			else{
 				$("#confirm_text").text("The mission succeeded with " + succeed_votes + " succeed(s) and " + fail_votes + " fail(s)");
 				$("#mission_"+current_mission).addClass('btn-success');
-				resistance_wins++;
+				good_wins++;
 			}
-			if(resistance_wins == 3){
-				$("#mission_voter").text("Game over - Resistance wins");
+			if(good_wins == 3){
+				$("#mission_voter").text("Game over - Good wins");
 				$("#start_mission").css('visibility', 'hidden');
 			}
-			if(spies_wins == 3){
-				$("#mission_voter").text("Game over - Spies wins");
+			if(bad_wins == 3){
+				$("#mission_voter").text("Game over - bad wins");
 				$("#start_mission").css('visibility', 'hidden');
 
 			}
@@ -313,40 +344,47 @@ $(document).ready(function(){
 
 	});
 
+	$("#get_leader").click(function(){
+		$(this).hide();
+		var the_leader = Math.floor(Math.random()*num_players) + 1;
+		$("#leader").html("The leader is player "+the_leader);
+		$("#start_mission").css('visibility', 'visible');
+	});
+
 	
 });
 
 function get_game_parameters(){
 	if(num_players == 5){
-		num_resistance = 3;
-		num_spies = 2;
+		num_good = 3;
+		num_bad = 2;
 	}
 	else if(num_players == 6){
-		num_resistance = 4;
-		num_spies = 2;
+		num_good = 4;
+		num_bad = 2;
 	}
 	else if(num_players == 7){
-		num_resistance = 4;
-		num_spies = 3;
+		num_good = 4;
+		num_bad = 3;
 	}
 	else if(num_players == 8){
-		num_resistance = 5;
-		num_spies = 3;
+		num_good = 5;
+		num_bad = 3;
 	}
 	else if(num_players == 9){
-		num_resistance = 6;
-		num_spies = 3;
+		num_good = 6;
+		num_bad = 3;
 	}
 	else if(num_players == 10){
-		num_resistance = 6;
-		num_spies = 4;
+		num_good = 6;
+		num_bad = 4;
 	}
 	players = new Array(num_players);
-	for(var i = 0; i < num_resistance; i++){
-		players[i] = "resistance";
+	for(var i = 0; i < num_good; i++){
+		players[i] = "good";
 	}
-	for(var i = num_resistance; i < num_players; i++){
-		players[i] = "spy";
+	for(var i = num_good; i < num_players; i++){
+		players[i] = "bad";
 	}
 	players = shuffle(players);
 	players = shuffle(players);
@@ -398,6 +436,11 @@ function mission_text(){
 		else if(current_mission == mission_5){
 			people_on_mission = 3;
 		}
+		$("#one_number").text("2");
+		$("#two_number").text("3");
+		$("#three_number").text("2");
+		$("#four_number").text("3");
+		$("#five_number").text("3");
 
 	}
 	else if(num_players ==6){
@@ -418,6 +461,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 4;
 		}
+		$("#one_number").text("2");
+		$("#two_number").text("3");
+		$("#three_number").text("4");
+		$("#four_number").text("3");
+		$("#five_number").text("4");
 	}
 	else if(num_players ==7){
 		fails_required = 1;
@@ -438,6 +486,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 4;
 		}
+		$("#one_number").text("2");
+		$("#two_number").text("3");
+		$("#three_number").text("3");
+		$("#four_number").text("4*");
+		$("#five_number").text("4");
 	}
 	else if(num_players ==8){
 		fails_required = 1;
@@ -458,6 +511,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 5;
 		}
+		$("#one_number").text("3");
+		$("#two_number").text("4");
+		$("#three_number").text("4");
+		$("#four_number").text("5*");
+		$("#five_number").text("5");
 	}
 	else if(num_players ==9){
 		fails_required = 1;
@@ -478,6 +536,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 5;
 		}
+		$("#one_number").text("3");
+		$("#two_number").text("4");
+		$("#three_number").text("4");
+		$("#four_number").text("5*");
+		$("#five_number").text("5");
 	}
 	else if(num_players ==10){
 		fails_required = 1;
@@ -498,6 +561,11 @@ function mission_text(){
 		else if(current_mission == 5){
 			people_on_mission = 5;
 		}
+		$("#one_number").text("3");
+		$("#two_number").text("4");
+		$("#three_number").text("4");
+		$("#four_number").text("5*");
+		$("#five_number").text("5");
 	}
 	$("#mission_text").text(people_on_mission + " are needed for mission " + current_mission+ " with " + fails_required +" fail(s) required to fail the mission");
 
