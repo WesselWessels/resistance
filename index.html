@@ -65,6 +65,10 @@
 					<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
 					<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
 				</div>
+				<div>
+					Good: <span id="num_good">3</span>
+					Bad: <span id="num_bad">2</span>
+				</div>
 				
 				
 				
@@ -166,6 +170,8 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		num_players = Number($(this).attr('value'));
 		get_game_parameters();
+		$("#num_good").text(num_good);
+		$("#num_bad").text(num_bad);
 		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 
 	});
