@@ -66,14 +66,15 @@
 					<button type="button" class="btn btn-lg btn-info num_players" id="nine" value="9">9</button>
 					<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
 				</div>
+				<br><br>
 				<div>
 					<div class="btn-group">
-						<button type="button" class="btn btn-xs btn-danger roles" value="1">Athena</button>
-						<button type="button" class="btn btn-xs btn-danger roles" value="2">Assassin</button>
-						<button type="button" class="btn btn-xs btn-danger roles" value="3">Hermes</button>
-						<button type="button" class="btn btn-xs btn-danger roles" value="4">Medusa</button>
-						<button type="button" class="btn btn-xs btn-danger roles" value="5">Kronos</button>
-						<button type="button" class="btn btn-xs btn-danger roles" value="6">Hades</button>
+						<button type="button" class="btn btn-sm btn-danger roles" value="1">Oracle</button>
+						<button type="button" class="btn btn-sm btn-danger roles" value="2">Assassin</button>
+						<button type="button" class="btn btn-sm btn-danger roles" value="3">Hermes</button>
+						<button type="button" class="btn btn-sm btn-danger roles" value="4">Medusa</button>
+						<button type="button" class="btn btn-sm btn-danger roles" value="5">Kronos</button>
+						<button type="button" class="btn btn-sm btn-danger roles" value="6">Hades</button>
 						
 					</div>
 				</div>
@@ -94,29 +95,29 @@
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
 							<h3>Roles</h3>
-							<div class="athena role_desc">
-								<h4 style="color:green;">Athena</h4>
+							<div class="Oracle role_desc">
+								<h4 style="color:green;">The Oracle</h4>
 								A <span style="color:green;">Good</span> player who knows who the Bad players are.
 							</div>
 							<div class="assassin role_desc">
 								<h4 style="color:red;">Assassin</h4>
-								A <span style="color:red;">Bad</span> player who knows who must kill Athena at the end of the game to win.
+								A <span style="color:red;">Bad</span> player who knows who must kill The Oracle at the end of the game to win.
 							</div>
 							<div class="hermes role_desc">
 								<h4 style="color:green;">Hermes</h4>
-								A <span style="color:green;">Good</span> player who knows who Athena is.
+								A <span style="color:green;">Good</span> player who knows who The Oracle is.
 							</div>
 							<div class="medusa role_desc">
 								<h4 style="color:red;">Medusa</h4>
-								A <span style="color:red;">Bad</span> player who appears as Athena to Hermes. Hermes must figure out who is the real Athena.
+								A <span style="color:red;">Bad</span> player who appears as The Oracle to Hermes. Hermes must figure out who is the real The Oracle.
 							</div>
 							<div class="kronos role_desc">
 								<h4 style="color:red;">Kronos</h4>
-								A <span style="color:red;">Bad</span> that do not know who his fellow Bad players are, and they do not know who he is. Athena, however, does know that he is a Bad Player.
+								A <span style="color:red;">Bad</span> that do not know who his fellow Bad players are, and they do not know who he is. The Oracle, however, does know that he is a Bad Player.
 							</div>
 							<div class="hades role_desc">
 								<h4 style="color:red;">Hades</h4>
-								A <span style="color:red;">Bad</span> player that does not reveal his identity to Athena.
+								A <span style="color:red;">Bad</span> player that does not reveal his identity to The Oracle.
 							</div>
 
 						</div>
@@ -207,7 +208,7 @@ var good_wins = 0;
 var bad_wins = 0;
 
 
-var athena = false;
+var Oracle = false;
 var assassin = false;
 var hades = false;
 var medusa = false;
@@ -243,7 +244,7 @@ function new_game(){
 
 		$(".roles").removeClass("btn-success");
 		$(".roles").addClass("btn-danger");
-		athena = false;
+		Oracle = false;
 		assassin = false;
 		kronos = false;
 		hermes = false;
@@ -339,26 +340,26 @@ $(document).ready(function(){
 		if(players[current_posistion-1] == 'good'){
 			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
-		if(players[current_posistion-1] == 'Athena'){
-			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		if(players[current_posistion-1] == 'Oracle'){
+			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span><br><br>You know who the Bad players are.");
 		}
 		if(players[current_posistion-1] == 'Hermes'){
-			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span><br><br>You know who The Oracle is.");
 		}
 		if(players[current_posistion-1] == 'bad'){
 			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
 		if(players[current_posistion-1] == 'Kronos'){
-			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span><br><br>You know nothing.");
 		}
 		if(players[current_posistion-1] == 'Medusa'){
-			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span><br><br>You appear to be The Oracle.");
 		}
 		if(players[current_posistion-1] == 'Hades'){
-			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span><br><br>You do not reveal to The Oracle.");
 		}
 		if(players[current_posistion-1] == 'Assassin'){
-			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span><br><br>Assassinate The Oracle at the end.");
 		}
 		current_posistion++;
 
@@ -384,10 +385,10 @@ $(document).ready(function(){
 		e.preventDefault();
 		var tem = $(this).attr('value');
 		if(tem == 1){
-			athena = !athena;
-			changeRoleButton(this, athena);
-			show_description('athena', athena);
-			//console.log(athena);
+			Oracle = !Oracle;
+			changeRoleButton(this, Oracle);
+			show_description('Oracle', Oracle);
+			//console.log(Oracle);
 		}
 		else if(tem == 2){
 			assassin = !assassin;
@@ -592,7 +593,7 @@ function get_game_parameters(){
 function get_num_roles(){
 	num_bad_roles = 0;
 	num_good_roles = 0;
-	if(athena){
+	if(Oracle){
 		num_good_roles++;
 	}
 	if(assassin){
@@ -615,8 +616,8 @@ function get_num_roles(){
 	var good_counter = 0;
 	var bad_counter = 0;
 
-	if(athena){
-		players_good[good_counter++] = "Athena";
+	if(Oracle){
+		players_good[good_counter++] = "Oracle";
 	}
 	if(assassin){
 		players_bad[bad_counter++] = "Assassin";
