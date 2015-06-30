@@ -6,6 +6,7 @@
 		<!-- <link rel="shortcut icon" href="maze.ico"> -->
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<script src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/responsivevoice.js"></script>
 		<style type="text/css">
 			html, body {
 			    max-width: 100%;
@@ -66,6 +67,17 @@
 					<button type="button" class="btn btn-lg btn-info num_players" id="ten" value="10">10</button>		
 				</div>
 				<div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-xs btn-danger roles" value="1">Athena</button>
+						<button type="button" class="btn btn-xs btn-danger roles" value="2">Assassin</button>
+						<button type="button" class="btn btn-xs btn-danger roles" value="3">Hermes</button>
+						<button type="button" class="btn btn-xs btn-danger roles" value="4">Medusa</button>
+						<button type="button" class="btn btn-xs btn-danger roles" value="5">Kronos</button>
+						<button type="button" class="btn btn-xs btn-danger roles" value="6">Hades</button>
+						
+					</div>
+				</div>
+				<div>
 					Good: <span id="num_good">3</span>
 					Bad: <span id="num_bad">2</span>
 				</div>
@@ -78,6 +90,38 @@
 				<div class="col-md-8">
 					<br>
 					<button class="btn btn-lg btn-success" id="start_game">Start</button>
+					<div class="container-fluid" id="roles_explain_div">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<h3>Roles</h3>
+							<div class="athena role_desc">
+								<h4 style="color:green;">Athena</h4>
+								A <span style="color:green;">Good</span> player who knows who the Bad players are.
+							</div>
+							<div class="assassin role_desc">
+								<h4 style="color:red;">Assassin</h4>
+								A <span style="color:red;">Bad</span> player who knows who must kill Athena at the end of the game to win.
+							</div>
+							<div class="hermes role_desc">
+								<h4 style="color:green;">Hermes</h4>
+								A <span style="color:green;">Good</span> player who knows who Athena is.
+							</div>
+							<div class="medusa role_desc">
+								<h4 style="color:red;">Medusa</h4>
+								A <span style="color:red;">Bad</span> player who appears as Athena to Hermes. Hermes must figure out who is the real Athena.
+							</div>
+							<div class="kronos role_desc">
+								<h4 style="color:red;">Kronos</h4>
+								A <span style="color:red;">Bad</span> that do not know who his fellow Bad players are, and they do not know who he is. Athena, however, does know that he is a Bad Player.
+							</div>
+							<div class="hades role_desc">
+								<h4 style="color:red;">Hades</h4>
+								A <span style="color:red;">Bad</span> player that does not reveal his identity to Athena.
+							</div>
+
+						</div>
+						<div class="col-md-2"></div>
+					</div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>	
@@ -112,6 +156,7 @@
 				<div>
 					<button type="button" class="btn btn-lg btn-success" id="start_mission">Start Mission</button>
 					<div>
+						<!-- <button type="button" class="btn btn-lg btn-success" id="say_message">Say Roles</button> -->
 						<button type="button" class="btn btn-lg btn-success" id="get_leader">Get Leader</button>
 						<div id="leader"></div>
 					</div>
@@ -139,9 +184,13 @@
 
 var num_players = 5;
 var num_good = 3;
+var num_good_roles = 0;
 var num_bad = 2;
+var num_bad_roles = 0;
 
 var players;
+var players_good;
+var players_bad;
 var current_posistion = 1;
 var current_mission = 1;
 
@@ -158,10 +207,75 @@ var good_wins = 0;
 var bad_wins = 0;
 
 
+var athena = false;
+var assassin = false;
+var hades = false;
+var medusa = false;
+var hades = false;
+var kronos = false;
+var hermes = false;
+
+var correct = false;
+
+function new_game(){
+		get_game_parameters();
+		$("#roles_div").show();
+		$("#num_player_select").css('visibility', 'visible');
+		$(".navbar").css('background-color', '#5CB85C'); //green
+		$("#roles_div").hide();
+		$("#done_position_button").css('visibility', 'hidden');
+		$("#start_game").css('visibility', 'visible');
+		$("#to_hide").show();
+		$("#confirm_position_button").css('visibility', 'hidden');
+		$("#done_position_button").css('visibility', 'hidden');
+		$("#mission_div").hide();
+		$("#mission_voter").text("");
+		$("#get_leader").show();
+		$("#leader").text("");
+		current_posistion = 1;
+		current_mission = 1;
+		mission_text();
+		succeed_votes = 0;
+		fail_votes = 0;
+		num_votes = 0;
+		good_wins = 0;
+		bad_wins = 0;
+
+		$(".roles").removeClass("btn-success");
+		$(".roles").addClass("btn-danger");
+		athena = false;
+		assassin = false;
+		kronos = false;
+		hermes = false;
+		medusa = false;
+		hades = false;
+
+
+		$("#mission_buttons").css('visibility', 'visible');
+		$("#start_mission").css('visibility', 'visible');
+		$(".vote").css('visibility', 'hidden');
+		$(".vote_confirm").css('visibility', 'hidden');
+
+		$("#confirm_text").text("");
+		$(".role_desc").hide();
+
+		$(".mission").removeClass('btn-danger btn-success active');
+		$(".mission").addClass('btn-warning');
+		$("#mission_1").addClass('active');
+		$("#roles_explain_div").show();
+		$("#confirm_position").text("Are you player "+current_posistion +"?");
+		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
+		console.log(players);
+	}
+
+
 $(document).ready(function(){
+
+	
 	$("#roles_div").hide();
 	$("#mission_div").hide();
 	$("#mission_vote").hide();
+	$(".role_desc").hide();
 	//$("#get").hide();
 	$(".vote_confirm").css('visibility', 'hidden');
 	$("#done_position_button").css('visibility', 'hidden');
@@ -187,16 +301,35 @@ $(document).ready(function(){
 	$("#start_game").click(function(e){
 		e.preventDefault();
 		get_game_parameters();
-		$(this).css('visibility', 'hidden');
-
-		$("#num_player_select").css('visibility', 'hidden');
-		$(".navbar").css('background-color', '#5CB85C'); //green
-		$("#roles_div").show();
-		$("#confirm_position_button").css('visibility', 'visible');
-		$("#confirm_position").text("Are you player "+current_posistion +"?");
-		mission_text();
-		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
 		console.log(players);
+		if(correct){
+			for(var i = 0; i < num_good_roles; i++){
+				players[i] = players_good[i];
+			}
+			for(var i = 0; i < num_bad_roles; i++){
+				players[i+num_good] = players_bad[i];
+			}
+
+			players = shuffle(players);
+			players = shuffle(players);
+
+			$(this).css('visibility', 'hidden');
+			$("#roles_explain_div").hide();
+			$("#num_player_select").css('visibility', 'hidden');
+			$(".navbar").css('background-color', '#5CB85C'); //green
+			$("#roles_div").show();
+			$("#confirm_position_button").css('visibility', 'visible');
+			$("#confirm_position").text("Are you player "+current_posistion +"?");
+			mission_text();
+			console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
+			console.log(players);
+		}
+		else{
+			//new_game();
+			alert("Not enough people for those roles");
+		}
+
+		
 	});
 	$("#confirm_position_button").click(function(e){
 		e.preventDefault();
@@ -206,7 +339,25 @@ $(document).ready(function(){
 		if(players[current_posistion-1] == 'good'){
 			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
-		else if(players[current_posistion-1] == 'bad'){
+		if(players[current_posistion-1] == 'Athena'){
+			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		if(players[current_posistion-1] == 'Hermes'){
+			$("#confirm_position").html('Your role is <span style="color:green;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		if(players[current_posistion-1] == 'bad'){
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		if(players[current_posistion-1] == 'Kronos'){
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		if(players[current_posistion-1] == 'Medusa'){
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		if(players[current_posistion-1] == 'Hades'){
+			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
+		}
+		if(players[current_posistion-1] == 'Assassin'){
 			$("#confirm_position").html('Your role is <span style="color:red;"><strong>'+ players[current_posistion-1]+"</strong></span>");
 		}
 		current_posistion++;
@@ -229,46 +380,78 @@ $(document).ready(function(){
 		}
 
 	});
+	$(".roles").click(function(e){
+		e.preventDefault();
+		var tem = $(this).attr('value');
+		if(tem == 1){
+			athena = !athena;
+			changeRoleButton(this, athena);
+			show_description('athena', athena);
+			//console.log(athena);
+		}
+		else if(tem == 2){
+			assassin = !assassin;
+			changeRoleButton(this, assassin);
+			show_description('assassin', assassin);
+		}
+		else if(tem == 3){
+			hermes = !hermes;
+			changeRoleButton(this, hermes);
+			show_description('hermes', hermes);
+		}
+		else if(tem == 4){
+			medusa = !medusa;
+			changeRoleButton(this, medusa);
+			show_description('medusa', medusa);
+		}
+		else if(tem == 5){
+			kronos = !kronos;
+			changeRoleButton(this, kronos);
+			show_description('kronos', kronos);
+		}
+		else if(tem == 6){
+			hades = !hades;
+			changeRoleButton(this, hades);
+			show_description('hades', hades);
+		}
+		console.log($(this).attr('value'));
+	});
+
+	function show_description(item, flag){
+		if(flag){
+			$("."+item).show();
+		}
+		else{
+			$("."+item).hide();
+		}
+		
+	}
+
+	function changeRoleButton(button, flag){
+		if(flag){
+			$(button).removeClass("btn-danger");
+			$(button).addClass("btn-success");
+		}
+		else{
+			$(button).removeClass("btn-success");
+			$(button).addClass("btn-danger");
+		}
+		
+	}
+	// responsiveVoice.speech_onend(function(){ 
+	// 	alert("Done Speaking"); 
+	// });
+	// $("#say_message").click(function(e){
+	// 	e.preventDefault();
+	// 	responsiveVoice.WPM = 10;
+	// 	responsiveVoice.speak("Everyone, close your eyes and put your fist in front of you... Will the " + num_good + " bad players. please open their eyes and put up their thumbs......");
+	// });
 	$("#new_game").click(function(e){
 		e.preventDefault();
-		get_game_parameters();
-		$("#roles_div").show();
-		$("#num_player_select").css('visibility', 'visible');
-		$(".navbar").css('background-color', '#5CB85C'); //green
-		$("#roles_div").hide();
-		$("#done_position_button").css('visibility', 'hidden');
-		$("#start_game").css('visibility', 'visible');
-		$("#to_hide").show();
-		$("#confirm_position_button").css('visibility', 'hidden');
-		$("#done_position_button").css('visibility', 'hidden');
-		$("#mission_div").hide();
-		$("#mission_voter").text("");
-		$("#get_leader").show();
-		$("#leader").text("");
-		current_posistion = 1;
-		current_mission = 1;
-		mission_text();
-		succeed_votes = 0;
-		fail_votes = 0;
-		num_votes = 0;
-		good_wins = 0;
-		bad_wins = 0;
-
-		$("#mission_buttons").css('visibility', 'visible');
-		$("#start_mission").css('visibility', 'visible');
-		$(".vote").css('visibility', 'hidden');
-		$(".vote_confirm").css('visibility', 'hidden');
-
-		$("#confirm_text").text("");
-
-		$(".mission").removeClass('btn-danger btn-success active');
-		$(".mission").addClass('btn-warning');
-		$("#mission_1").addClass('active');
-
-		$("#confirm_position").text("Are you player "+current_posistion +"?");
-		console.log("players: " + num_players + " good: "+ num_good + " bad: "+ num_bad);
-		console.log(players);
+		new_game();
 	});
+	
+	
 
 	$("#start_mission").click(function(e){
 		e.preventDefault();
@@ -392,8 +575,11 @@ function get_game_parameters(){
 	for(var i = num_good; i < num_players; i++){
 		players[i] = "bad";
 	}
-	players = shuffle(players);
-	players = shuffle(players);
+	correct = get_num_roles();
+	console.log(correct);
+	
+
+	
 
 	// for(var i = 0; i < 10000; i++){
 	// 	var index_one = Math.floor(Math.random() * num_players);
@@ -402,6 +588,60 @@ function get_game_parameters(){
 	// 	players[index_one] = players[index_two];
 	// 	players[index_two] = temp;
 	// }
+}
+function get_num_roles(){
+	num_bad_roles = 0;
+	num_good_roles = 0;
+	if(athena){
+		num_good_roles++;
+	}
+	if(assassin){
+		num_bad_roles++;
+	}
+	if(hermes){
+		num_good_roles++;
+	}
+	if(medusa){
+		num_bad_roles++;
+	}
+	if(kronos){
+		num_bad_roles++;
+	}
+	if(hades){
+		num_bad_roles++;
+	}
+	players_good = new Array(num_good_roles);
+	players_bad = new Array(num_bad_roles);
+	var good_counter = 0;
+	var bad_counter = 0;
+
+	if(athena){
+		players_good[good_counter++] = "Athena";
+	}
+	if(assassin){
+		players_bad[bad_counter++] = "Assassin";
+	}
+	if(hermes){
+		players_good[good_counter++] = "Hermes";
+	}
+	if(medusa){
+		players_bad[bad_counter++] = "Medusa";
+	}
+	if(kronos){
+		players_bad[bad_counter++] = "Kronos";
+	}
+	if(hades){
+		players_bad[bad_counter++] = "Hades";
+	}
+	console.log(num_good_roles + " " + num_good +"\n" + num_bad_roles + " "+num_bad);
+	if(num_good_roles > num_good){
+		return false;
+	}
+	if(num_bad_roles > num_bad){
+		return false;
+	}
+	return true;
+
 }
 function shuffle(array) {
     var counter = array.length, temp, index;
